@@ -21,6 +21,7 @@ jobs:
     steps:
       - name: build
         run: |
+                ulimit -SHn 65000
                 sudo apt update -y
                 sudo apt full-upgrade -y
                 sudo apt install -y --no-install-recommends ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
