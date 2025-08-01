@@ -43,6 +43,7 @@ jobs:
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
+                  make -j`nproc`
                   mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/r2s-imagebuilder.tar.xz
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
