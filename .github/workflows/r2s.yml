@@ -50,11 +50,11 @@ jobs:
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           file: |
                   ~/*imagebuilder*
                   ~/*.img.*
-          tag: ${{env.strDate}}
-          file_glob: true
-          overwrite: true
-          release_name: ${{env.strDate}} 自动发布
+          tag_name: ${{env.strDate}}         
+          name: ${{env.strDate}} 自动发布
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
