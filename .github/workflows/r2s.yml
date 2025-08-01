@@ -45,12 +45,15 @@ jobs:
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
-                  mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/imagebuilder.tar.xz
+                  mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/
+                  mv `ls ~/lede/bin/targets/*/*/*.img.*` ~/
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ~/*.tar.*
+          file: |
+                  ~/*imagebuilder*
+                  ~/*.img.*
           tag: ${{env.strDate}}
           file_glob: true
           overwrite: true
