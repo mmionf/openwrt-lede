@@ -36,15 +36,15 @@ jobs:
       
       - name: Update feeds and packages
         run: |
-                  git clone --depth=1 https://github.com/coolsnowwolf/lede lede
-                  cd lede 
+                  git clone --depth=1 https://github.com/coolsnowwolf/lede ~/lede
+                  cd ~/lede 
                   ./scripts/feeds update -a
                   ./scripts/feeds install -a
                   cat $GITHUB_WORKSPACE/r2s/def.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
-                  mv `ls bin/targets/*/*/*imagebuilder*xz` ~/r2s-imagebuilder.tar.xz
+                  mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/r2s-imagebuilder.tar.xz
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
