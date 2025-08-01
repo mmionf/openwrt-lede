@@ -1,4 +1,4 @@
-name: build
+name: build r2s firmware
 
 on:
   repository_dispatch:
@@ -16,7 +16,7 @@ on:
 jobs: 
 
   build_packages:
-    name: bu
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: build
