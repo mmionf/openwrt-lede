@@ -45,8 +45,8 @@ jobs:
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
-                  mv ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
-                  mv ./bin/targets/*/*/*imagebuilder*xz  $GITHUB_WORKSPACE/release/
+                  mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
+                  mv -v ./bin/targets/*/*/*imagebuilder*xz  $GITHUB_WORKSPACE/release/
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
