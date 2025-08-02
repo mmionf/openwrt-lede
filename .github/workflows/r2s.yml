@@ -43,15 +43,17 @@ jobs:
                   cat $GITHUB_WORKSPACE/r2s/def.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
-                  echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV                
+                  echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
+                  mkdir -p $GITHUB_WORKSPACE/release/
+                  mv ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
+                  mv ./bin/targets/*/*/*imagebuilder*xz  $GITHUB_WORKSPACE/release/
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
           tag_name: ${{env.strDate}}         
           name: ${{env.strDate}} 自动发布
           files: |
-                 ~/lede/bin/targets/*/*/*imagebuilder*xz
-                 ~/lede/bin/targets/*/*/*.img.gz
+              ./release/* 
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
