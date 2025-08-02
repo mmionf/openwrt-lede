@@ -19,7 +19,7 @@ jobs:
     name: build r2s firmware
     runs-on: ubuntu-latest
     steps:
-      - name: install depend
+      - name: setup1
         run: |       
                 sudo apt install -y --no-install-recommends ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
                 bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
@@ -33,19 +33,22 @@ jobs:
         with:
           fetch-depth: 1
           
-      - name: clone
+      - name: setup2
         run: |
                   ulimit -SHn 65000
                   git clone  https://github.com/coolsnowwolf/lede ~/lede
                   cd ~/lede 
-      - name: feeds_update
+      - name: setup3
         run: |
+                  cd ~/lede
                   ./scripts/feeds update -a
-      - name: feeds_install
+      - name: setup4
         run: |
+                  cd ~/lede
                   ./scripts/feeds install -a
-      - name: start
+      - name: setup5
         run: |
+                  cd ~/lede
                   cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
