@@ -36,7 +36,7 @@ jobs:
       - name: setup2
         run: |
                   ulimit -SHn 65000
-                  git clone  https://github.com/coolsnowwolf/lede ~/lede
+                  git clone  https://github.com/immortalwrt/immortalwrt ~/lede
                   cd ~/lede 
       - name: setup3
         run: |
