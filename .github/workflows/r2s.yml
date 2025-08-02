@@ -43,7 +43,7 @@ jobs:
                   cat $GITHUB_WORKSPACE/r2s/def.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
-                  echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
+                  echo "strDate=$(TZ=UTC-8 date +%m-%d-%H:%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*imagebuilder*xz  $GITHUB_WORKSPACE/release/
