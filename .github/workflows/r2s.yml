@@ -1,4 +1,4 @@
-name: r2s
+name: make_firmware
 
 on:
   repository_dispatch:
