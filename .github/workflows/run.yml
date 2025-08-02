@@ -46,7 +46,7 @@ jobs:
         run: |
                   cd ~/lede
                   ./scripts/feeds install -a
-      - name: setup5
+      - name: setup09
         run: |
                   cd ~/lede
                   cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
