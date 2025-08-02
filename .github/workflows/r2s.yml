@@ -43,9 +43,7 @@ jobs:
                   cat $GITHUB_WORKSPACE/r2s/def.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
-                  echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
-                  mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/ib.tar.xz
-                  mv `ls ~/lede/bin/targets/*/*/*ext4-*.img.*` ~/r2s.img.gz
+                  echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV                
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
