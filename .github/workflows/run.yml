@@ -40,7 +40,7 @@ jobs:
                   cd ~/lede 
                   ./scripts/feeds update -a
                   ./scripts/feeds install -a
-                  cat $GITHUB_WORKSPACE/config/${ github.event.inputs.device }.config >.config
+                  cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H:%M)" >> $GITHUB_ENV
