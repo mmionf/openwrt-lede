@@ -33,13 +33,19 @@ jobs:
         with:
           fetch-depth: 1
           
-      - name: building
+      - name: clone
         run: |
                   ulimit -SHn 65000
                   git clone  https://github.com/coolsnowwolf/lede ~/lede
                   cd ~/lede 
+      - name: feeds_update
+        run: |
                   ./scripts/feeds update -a
+      - name: feeds_install
+        run: |
                   ./scripts/feeds install -a
+      - name: start
+        run: |
                   cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
                   make defconfig && make -j`nproc` download
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
