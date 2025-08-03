@@ -50,6 +50,10 @@ jobs:
                   cd ~/lede
                   cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
                   make defconfig && make -j`nproc` download
+                  
+      - name: setup10
+        run: |
+                  cd ~/lede
                   make -j`nproc` tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
