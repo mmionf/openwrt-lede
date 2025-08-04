@@ -73,7 +73,7 @@ jobs:
         run: |
                   cd /builder/lede
                   ulimit -SHn 65000
-                  make -j1
+                  make -j`nproc`
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
