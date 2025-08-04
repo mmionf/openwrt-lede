@@ -48,7 +48,7 @@ jobs:
          sudo mkdir -p /builder
          sudo mount /dev/github/runner /builder
          sudo chown -R runner:runner /builder
-         df -Th && lscpu && free -h && swapoff -a
+         df -Th && lscpu && free -h && sudo swapoff -a
       - name: setup2
         run: |            
                   git clone https://github.com/coolsnowwolf/lede /builder/lede 
