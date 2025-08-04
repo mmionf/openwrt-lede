@@ -47,7 +47,10 @@ jobs:
                   ./scripts/feeds install -a
       - name: setup09
         run: |
-                  cd ~/lede
+              cd ~/lede
+              rm -rf feeds/packages/lang/golang
+              git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+
                   cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
                   make defconfig && make -j`nproc` download
                   
