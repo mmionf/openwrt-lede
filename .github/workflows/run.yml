@@ -57,7 +57,8 @@ jobs:
       - name: setup10
         run: |
                   cd ~/lede
-                  make -j`nproc` IGNORE_ERRORS=1 tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install
+                  make -j`nproc` IGNORE_ERRORS=1 tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install \
+                  ||make -j1 V=s
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
