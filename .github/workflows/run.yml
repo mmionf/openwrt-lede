@@ -32,33 +32,48 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       
+      - name: Create simulated physical disk
+        run: |
+         mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+         root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+         sudo truncate -s "${mnt_size}"G /mnt/mnt.img
+         sudo truncate -s "${root_size}"G /root.img
+         sudo losetup /dev/loop6 /mnt/mnt.img
+         sudo losetup /dev/loop7 /root.img
+         sudo pvcreate /dev/loop6
+         sudo pvcreate /dev/loop7
+         sudo vgcreate github /dev/loop6 /dev/loop7
+         sudo lvcreate -n runner -l 100%FREE github
+         sudo mkfs.xfs /dev/github/runner
+         sudo mkdir -p /builder
+         sudo mount /dev/github/runner /builder
+         sudo chown -R runner.runner /builder
+         df -Th
       - name: setup2
         run: |
                   ulimit -SHn 65000
-                  git clone https://github.com/coolsnowwolf/lede ~/lede
-                  cd ~/lede 
+                  git clone https://github.com/coolsnowwolf/lede /builder/lede 
       - name: setup3
         run: |
-                  cd ~/lede
+                  cd /builder/lede
                   ./scripts/feeds update -a
       - name: setup4
         run: |
-                  cd ~/lede
+                  cd /builder/lede
                   ./scripts/feeds install -a
       - name: setup09
         run: |
-              cd ~/lede
+              cd /builder/lede
               rm -rf feeds/packages/lang/golang
               git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
 
-                  cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
-                  make defconfig && make -j`nproc` download
+              cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
+              make defconfig && make -j`nproc` download
                   
       - name: setup10
         run: |
                   cd ~/lede
-                  make -j`nproc` IGNORE_ERRORS=1 tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install \
-                  ||make -j1 V=s
+                  make -j`nproc` IGNORE_ERRORS=1 tools/compile toolchain/compile buildinfo target/compile package/compile package/install target/install || make -j1 V=s
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
