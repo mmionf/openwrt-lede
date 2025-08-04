@@ -6,7 +6,7 @@ on:
     inputs:
       device:
         description: 'select device to build'
-        default: 'r2s'
+        default: 'rockchip'
         required: false
       branch:
         description: 'seleclt openwrt branch'
