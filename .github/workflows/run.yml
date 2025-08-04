@@ -48,7 +48,7 @@ jobs:
          sudo mkdir -p /builder
          sudo mount /dev/github/runner /builder
          sudo chown -R runner.runner /builder
-         df -Th
+         df -Th && lscpu && free -h
       - name: setup2
         run: |
                   ulimit -SHn 65000
