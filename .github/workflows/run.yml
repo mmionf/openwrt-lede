@@ -56,11 +56,8 @@ jobs:
         run: |
                   cd /builder/lede
                   ./scripts/feeds update -a
-      - name: setup4
-        run: |
-                  cd /builder/lede
                   ./scripts/feeds install -a
-      - name: setup09
+      - name: st9
         run: |
               cd /builder/lede
               rm -rf feeds/packages/lang/golang
@@ -68,8 +65,8 @@ jobs:
 
               cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
               make defconfig && make -j`nproc` download
-                  
-      - name: setup10
+                
+      - name: st10
         run: |
                   cd /builder/lede
                   ulimit -SHn 65000
