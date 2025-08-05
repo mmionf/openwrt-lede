@@ -55,14 +55,14 @@ jobs:
       - name: setup3
         run: |
                   cd /builder/lede
-                  echo "src-git smpackage https://github.com/kenzok8/small-package.git" >feeds.conf.default
+                  #echo "src-git smpackage https://github.com/kenzok8/small-package.git" >feeds.conf.default
                   ./scripts/feeds update -a
                   ./scripts/feeds install -a
       - name: st9
         run: |
-              #cd /builder/lede
-              #rm -rf feeds/packages/lang/golang
-              #git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+              cd /builder/lede
+              rm -rf feeds/packages/lang/golang
+              git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
 
               cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
               make defconfig && make -j`nproc` download
