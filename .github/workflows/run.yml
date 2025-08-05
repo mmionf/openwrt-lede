@@ -69,7 +69,6 @@ jobs:
       - name: st10
         run: |
                   cd /builder/lede
-                  ulimit -SHn 65000
                   make -j`nproc`
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
