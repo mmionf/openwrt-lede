@@ -55,6 +55,7 @@ jobs:
       - name: setup3
         run: |
                   cd /builder/lede
+                  echo "src-git smpackage https://github.com/kenzok8/small-package.git" >feeds.conf.default
                   ./scripts/feeds update -a
                   ./scripts/feeds install -a
       - name: st9
