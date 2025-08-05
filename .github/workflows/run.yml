@@ -51,7 +51,7 @@ jobs:
          df -Th && lscpu && free -h && sudo swapoff -a
       - name: setup2
         run: |            
-                  git clone https://github.com/coolsnowwolf/lede /builder/lede 
+                  git clone https://github.com/immortalwrt/immortalwrt /builder/lede 
       - name: setup3
         run: |
                   cd /builder/lede
