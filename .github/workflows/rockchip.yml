@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: setup1
         run: |       
-                sudo apt -qq install  -y --no-install-recommends ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+                sudo apt-get -qq install  -y --no-install-recommends ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
                 bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
                 genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
                 libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
@@ -73,8 +73,8 @@ jobs:
                   make -j`nproc`
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
-                  mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/
-                  mv -v ./bin/targets/*/*/*imagebuilder*  $GITHUB_WORKSPACE/release/
+                  mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/ || true
+                  mv -v ./bin/targets/*/*/*imagebuilder*  $GITHUB_WORKSPACE/release/ || true
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
