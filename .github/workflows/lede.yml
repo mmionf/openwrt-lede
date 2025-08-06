@@ -65,7 +65,7 @@ jobs:
               rm -rf feeds/packages/lang/golang
               git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
 
-              cat $GITHUB_WORKSPACE/rockchip/${{ github.event.inputs.device }}-lede.config >.config
+              cat $GITHUB_WORKSPACE/rockchip/lede.config >.config
               make defconfig && make -j`nproc` download
                 
       - name: st10
