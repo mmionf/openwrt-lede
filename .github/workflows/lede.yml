@@ -1,0 +1,88 @@
+name: make_firmware
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: 'select device to build'
+        default: 'rockchip'
+        required: false
+      branch:
+        description: 'seleclt openwrt branch'
+        default: 'master'
+        required: false
+
+jobs: 
+
+  build_packages:
+    name: build r2s firmware
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup1
+        run: |       
+                sudo apt-get -qq install  -y --no-install-recommends ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+                bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
+                genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
+                libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
+                libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
+                python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
+                swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          
+      - name: checkout
+        uses: actions/checkout@main
+      
+      - name: Create simulated physical disk
+        run: |
+         mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+         root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+         sudo truncate -s "${mnt_size}"G /mnt/mnt.img
+         sudo truncate -s "${root_size}"G /root.img
+         sudo losetup /dev/loop6 /mnt/mnt.img
+         sudo losetup /dev/loop7 /root.img
+         sudo pvcreate /dev/loop6
+         sudo pvcreate /dev/loop7
+         sudo vgcreate github /dev/loop6 /dev/loop7
+         sudo lvcreate -n runner -l 100%FREE github
+         sudo mkfs.xfs /dev/github/runner
+         sudo mkdir -p /builder
+         sudo mount /dev/github/runner /builder
+         sudo chown -R runner:runner /builder
+         df -Th && lscpu && free -h && sudo swapoff -a
+      - name: setup2
+        run: |            
+                  git clone  https://github.com/coolsnowwolf/lede /builder/lede 
+      - name: setup3
+        run: |
+                  cd /builder/lede
+                  cat $GITHUB_WORKSPACE/feeds.conf.default >feeds.conf.default
+                  #echo "src-git smpackage https://github.com/kenzok8/small-package.git" >feeds.conf.default
+                  ./scripts/feeds update -a
+                  ./scripts/feeds install -a
+      - name: st9
+        run: |
+              cd /builder/lede
+              rm -rf feeds/packages/lang/golang
+              git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+
+              cat $GITHUB_WORKSPACE/config/${{ github.event.inputs.device }}.config >.config
+              make defconfig && make -j`nproc` download
+                
+      - name: st10
+        run: |
+                  cd /builder/lede
+                  make -j`nproc`
+                  echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
+                  mkdir -p $GITHUB_WORKSPACE/release/
+                  mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/ || true
+                  mv -v ./bin/targets/*/*/*imagebuilder*  $GITHUB_WORKSPACE/release/ || true
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2.2.1
+        with: 
+          tag_name: ${{env.strDate}}         
+          name:  自动发布
+          files: |
+              ./release/* 
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
