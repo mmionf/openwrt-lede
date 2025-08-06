@@ -1,4 +1,4 @@
-name: make_firmware
+name: make_immortalwrt_firmware
 
 on:
   repository_dispatch:
