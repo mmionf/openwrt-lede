@@ -67,7 +67,7 @@ jobs:
               
               cat $GITHUB_WORKSPACE/rockchip/lede.config >.config
               . $GITHUB_WORKSPACE/rockchip/config.sh
-              make defconfig && make -j`nproc` download || make -j`nproc` download V=s
+              make defconfig &&  make -j`nproc` download V=s
                 
       - name: st10
         run: |
