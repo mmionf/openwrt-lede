@@ -95,4 +95,4 @@ jobs:
         with: 
           to: ${{ secrets.CHAT_ID }}
           token: ${{ TELEGRAM_TOKEN }}
-          messages: 编译成功🍌
+          message: 编译成功🍌
