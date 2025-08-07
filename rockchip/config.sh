@@ -1,9 +1,9 @@
 # boot init script by openwrt
-cat <<EOF >package/package/base-files/files/etc/uci-defaults/99-init.sh
+cat <<'EOF' >package/base-files/files/etc/uci-defaults/99-init.sh
 uci set network.lan.ipaddr=192.168.1.18
 uci commit
 #
-cat <<'EOL' >/etc/hotplug.d/iface/12-eth1
+cat <<EOL >/etc/hotplug.d/iface/12-eth1
 #!/bin/sh
 
 ETHTOOL=/usr/sbin/ethtool
