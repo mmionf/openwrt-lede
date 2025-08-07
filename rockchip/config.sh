@@ -1,3 +1,5 @@
 pkg_name=xray-core
 rm -rf feeds/helloworld/$pkg_name/Makefile
-wget https://github.com/immortalwrt/packages/raw/refs/heads/openwrt-24.10/net/xray-core/Makefile -P feeds/helloworld/$pkg_name/ 
+cd feeds/helloworld/$pkg_name/
+wget https://github.com/immortalwrt/packages/raw/refs/heads/openwrt-24.10/net/xray-core/Makefile
+cd -
