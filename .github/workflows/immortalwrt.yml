@@ -80,7 +80,7 @@ jobs:
         uses: softprops/action-gh-release@v2.2.1
         with: 
           tag_name: ${{env.strDate}}         
-          name:  自动发布
+          name:  自动发布 immortalwrt 固件
           files: |
               ./release/* 
           token: ${{ secrets.GITHUB_TOKEN }}
