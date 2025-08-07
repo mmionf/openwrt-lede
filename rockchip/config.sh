@@ -17,3 +17,4 @@ $ETHTOOL -i eth1 | grep r8152 && \
 $ETHTOOL -K eth1 rx off tx off
 EOL
 EOF
+#
