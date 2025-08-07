@@ -94,5 +94,5 @@ jobs:
         uses: appleboy/telegram-action@master
         with: 
           to: ${{ secrets.CHAT_ID }}
-          token: ${{ TELEGRAM_TOKEN }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
           message: 编译成功🍌
