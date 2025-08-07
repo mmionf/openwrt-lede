@@ -89,3 +89,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: telegram_send_notf
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.CHAT_ID }}
+          token: ${{ TELEGRAM_TOKEN }}
+          messages: 编译成功🍌
