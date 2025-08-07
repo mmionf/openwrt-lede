@@ -1,6 +1,9 @@
-pkg_name=xray-core
-ls feeds/helloworld/$pkg_name/
-rm -rf feeds/helloworld/$pkg_name/Makefile
-cd feeds/helloworld/$pkg_name/
-wget https://github.com/immortalwrt/packages/raw/refs/heads/openwrt-24.10/net/xray-core/Makefile
-cd -
+pkg_path='feeds/packages/net'
+find $pkg_path/xray-core/ $pkg_path/v2ray-plugin/ \
+ $pkg_path/xray-plugin/ -name Makefile -delete
+wget https://github.com/immortalwrt/packages/raw/refs/heads/master/net/xray-plugin/Makefile \
+ -P $pkg_path/xray-plugin/
+ wget https://github.com/immortalwrt/packages/raw/refs/heads/master/net/v2ray-plugin/Makefile \
+  -P $pkg_path/v2ray-plugin/
+  wget https://github.com/immortalwrt/packages/raw/refs/heads/master/net/xray-core/Makefile \
+   -P $pkg_path/xray-core/
