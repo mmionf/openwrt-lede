@@ -1,6 +1,8 @@
 name: make_lede_firmware
 
 on:
+  schedule:
+    - cron: 0 9 * * *
   repository_dispatch:
   workflow_dispatch:
     inputs:
