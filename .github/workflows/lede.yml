@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: 0 10 * * *
   workflow_dispatch:
+    inputs:
+      device:
+        description: 'select device to build'
+        default: 'rockchip'
+        required: false
+      branch:
+        description: 'seleclt openwrt branch'
+        default: 'master'
+        required: false
 env: 
   TZ: Asia/Shanghai
 jobs: 
