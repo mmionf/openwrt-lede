@@ -21,7 +21,10 @@ EOF
 #
 rm -f target/linux/rockchip/Makefile
 rm -f target/linux/rockchip/image/armv8.mk
+rm -f include/target.mk
 url1="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/target/linux/rockchip/Makefile"
 url2="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/target/linux/rockchip/image/armv8.mk"
+url3="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/include/target.mk"
 wget -q $url1 -P target/linux/rockchip/
 wget -q $url2 -P target/linux/rockchip/iamge/
+wget -q $url3 -P include/
