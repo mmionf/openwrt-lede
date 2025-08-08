@@ -19,3 +19,9 @@ $ETHTOOL -K eth1 rx off tx off
 EOL
 EOF
 #
+rm target/linux/rockchip/Makefile
+rm target/linux/rockchip/image/armv8.mk
+url1="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/target/linux/rockchip/Makefile"
+url2="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/target/linux/rockchip/image/armv8.mk"
+wget -q $url1 -P target/linux/rockchip/
+wget -q $url2 -P target/linux/rockchip/iamge/
