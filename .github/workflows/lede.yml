@@ -53,7 +53,7 @@ jobs:
          df -Th && lscpu && free -h && sudo swapoff -a
       - name: setup2
         run: |            
-                  git clone  https://github.com/coolsnowwolf/lede /builder/lede 
+                  git clone --depth 1  https://github.com/coolsnowwolf/lede /builder/lede 
       - name: setup3
         run: |
                   cd /builder/lede
@@ -74,7 +74,7 @@ jobs:
       - name: st10
         run: |
                   cd /builder/lede
-                  make -j`nproc`
+                  make -j`nproc`|| df -hT
                   echo "strDate=$(TZ=UTC-8 date +%m-%d-%H-%M)" >> $GITHUB_ENV
                   mkdir -p $GITHUB_WORKSPACE/release/
                   mv -v ./bin/targets/*/*/*.img.gz  $GITHUB_WORKSPACE/release/ || true
