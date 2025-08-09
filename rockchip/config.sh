@@ -19,4 +19,4 @@ $ETHTOOL -K eth1 rx off tx off
 EOL
 EOF
 #
-sed -i 's/CPU_CFLAGS.*/CPU_CFLAGS = -O3 -pipe/' include/target.mk
+sed -i 's/CPU_CFLAGS =.*/CPU_CFLAGS = -O3 -pipe/' include/target.mk
