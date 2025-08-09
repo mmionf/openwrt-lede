@@ -7,6 +7,8 @@ on:
     inputs:
       device:
         type: choice
+        default: 'friendlyarm_nanopi-r2s'
+        required: true
         description: |
           输入 软路由型号 可选值如下：
         options:
