@@ -55,8 +55,6 @@ on:
           - xunlong_orangepi-5-plus
           - xunlong_orangepi-r1-plus
           - xunlong_orangepi-r1-plus-lts
-env: 
-  BOARD: ${{github.events.inputs.devive}}
 
 jobs: 
 
@@ -108,7 +106,7 @@ jobs:
               cd /builder/lede
               rm -rf feeds/packages/lang/golang
               git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
-
+              BOARD=${{github.events.inputs.device}}
               cat $GITHUB_WORKSPACE/rockchip/immwrt.config >.config
               echo "CONFIG_TARGET_rockchip_armv8_DEVICE_$BOARD=y" >>.config
               . $GITHUB_WORKSPACE/rockchip/config.sh
