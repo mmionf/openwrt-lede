@@ -28,9 +28,3 @@ url3="https://github.com/immortalwrt/immortalwrt/raw/refs/heads/master/include/t
 wget -q  $url1 -P target/linux/rockchip/
 #wget  $url2 -P target/linux/rockchip/iamge/
 wget  -q $url3 -P include/
-mkdir -p  package/feeds/packages/pcre2
-pushd package/feeds/packages/pcre2
-for i in  Config.in Makefile
-  do wget https://github.com/coolsnowwolf/packages/raw/refs/heads/master/libs/pcre2/$i
-done
-popd
