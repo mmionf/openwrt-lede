@@ -1,6 +1,7 @@
 # boot init script by openwrt
 cat <<'EOF' >package/base-files/files/etc/uci-defaults/99-init.sh
 uci set network.lan.ipaddr=192.168.1.18
+uci set network.lan.netmask=255.255.255.0
 uci commit
 passwd -d root
 #
