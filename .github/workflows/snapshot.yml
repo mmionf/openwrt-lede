@@ -71,7 +71,7 @@ jobs:
         run: |
           . $GITHUB_WORKSPACE/package.conf
           cd *imagebuilder*
-          make image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}"
+          make V=s image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}"
           mkdir -p $GITHUB_WORKSPACE/release
           mv -v bin/targets/*/*/*img.gz  $GITHUB_WORKSPACE/release/
           
