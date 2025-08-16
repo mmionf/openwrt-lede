@@ -74,6 +74,7 @@ jobs:
         run: |
           . $GITHUB_WORKSPACE/package.conf
           cd *imagebuilder*
+          cp -f  /feeds.conf repositories.conf
           sudo make V=s image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}"
           mkdir -p $GITHUB_WORKSPACE/release
           sudo mv -v bin/targets/*/*/*img.gz  $GITHUB_WORKSPACE/release/
