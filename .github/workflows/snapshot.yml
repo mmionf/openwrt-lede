@@ -73,7 +73,7 @@ jobs:
       - name: make
         run: |
           . $GITHUB_WORKSPACE/package.conf
-          cd *imagebuilder*
+          cd *imagebuilder* ；wget -P packages/ https://github.com/xiaorouji/openwrt-passwall/releases/download/25.8.5-2/luci-24.10_luci-app-passwall_25.8.5-r2_all.ipk
            cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
           sudo make V=s image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}" \
            FILES="$GITHUB_WORKSPACE/files"
