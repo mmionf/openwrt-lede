@@ -15,7 +15,7 @@ jobs:
       
       - name: dl_img
         run: |
-          apt install -y img2simg
+          sudo apt install -y img2simg
           wget -qO- https://dl.openwrt.ai/releases/24.10/targets/amlogic/meson8b/kwrt-imagebuilder-amlogic-meson8b.Linux-x86_64.tar.zst|tar --zstd -xf -
           cd *imagebuilder*
           wget -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
