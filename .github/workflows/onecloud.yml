@@ -23,7 +23,7 @@ jobs:
           cp -f  $GITHUB_WORKSPACE/onecloud/feeds.conf repositories.conf
           sudo make image PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}" FILES="$GITHUB_WORKSPACE/files"
           mkdir $GITHUB_WORKSPACE/release 
-          sudo mv -v bin/targets/*/*/*img.gz  $GITHUB_WORKSPACE/release/
+          sudo mv -v bin/targets/*/*/*img*  $GITHUB_WORKSPACE/release/
           # sudo mv burn/*.simg $GITHUB_WORKSPACE/release/
       
       - name: Upload release asset
