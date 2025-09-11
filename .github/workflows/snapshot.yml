@@ -84,7 +84,7 @@ jobs:
         uses: softprops/action-gh-release@v2.2.1
         with: 
           tag_name: snapshot         
-          name:  自动发布 immortalwrt_snapshot 固件
+          name:  自动发布 kwrt_snapshot 固件
           files: |
               ./release/* 
           token: ${{ secrets.GITHUB_TOKEN }}
