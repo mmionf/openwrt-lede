@@ -1,4 +1,4 @@
-name: build snapshot kwrt
+name:   kwrt_small
 on:
   schedule:
     - cron: 0 0 * * *
