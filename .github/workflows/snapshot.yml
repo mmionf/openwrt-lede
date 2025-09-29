@@ -59,7 +59,7 @@ on:
           - xunlong_orangepi-r1-plus-lts
 jobs:
   build_packages:
-    name: dl
+    name: start
     runs-on: ubuntu-latest
     steps:
       - name: ck
