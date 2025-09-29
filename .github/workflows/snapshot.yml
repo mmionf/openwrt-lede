@@ -1,7 +1,7 @@
 name: build snapshot openwrt
 on:
-  #schedule:
-    #- cron: 0 12 * * *
+  schedule:
+    - cron: 0 12 * * *
   workflow_dispatch:
     inputs:
       rootfs_size:
