@@ -68,13 +68,13 @@ jobs:
       - name: setup1
         run: |
           
-           wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
-          # wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
+          # wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
+           wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
       - name: make
         run: |
           . $GITHUB_WORKSPACE/package.conf
           cd *imagebuilder* ; wget -q -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
-           # cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
+            cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
           sudo make V=s image PROFILE="friendlyarm_nanopi-r2s" PACKAGES="$PKG" ROOTFS_PARTSIZE="128" \
            FILES="$GITHUB_WORKSPACE/files"
           mkdir -p $GITHUB_WORKSPACE/release
