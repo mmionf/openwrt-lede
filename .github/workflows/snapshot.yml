@@ -1,4 +1,4 @@
-name: kwrt_lar
+name: small
 on:
   #schedule:
     #- cron: 0 0 */2 * *
@@ -68,7 +68,7 @@ jobs:
       - name: setup1
         run: |
           
-           wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
+           wget -qO- https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
          #  wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
       - name: make
         run: |
@@ -83,7 +83,7 @@ jobs:
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
-          tag_name: large         
+          tag_name: small         
           name:  自动发布 kwrt_snapshot 固件
           files: |
               ./release/* 
