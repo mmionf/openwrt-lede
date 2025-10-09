@@ -4,3 +4,6 @@ uci set network.lan.dns=223.5.5.5
 uci set network.lan.ipaddr=192.168.1.2
 uci commit
 
+cat <<'EOF' >/etc/hotplug.d/iface/01eth
+ethtool -K eth1 rx off tx off
+sysctl -w net.ipv6.conf.br-lan.accept_ra=2
