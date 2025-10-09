@@ -1,7 +1,7 @@
 name:   kwrt_small
 on:
-  schedule:
-    - cron: 0 23 * * *
+ # schedule:
+   # - cron: 0 23 * * *
   workflow_dispatch:
     inputs:
       rootfs_size:
