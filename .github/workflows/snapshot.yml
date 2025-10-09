@@ -1,12 +1,12 @@
-name:   kwrt_small
+name: kwrt_lar
 on:
- # schedule:
-   # - cron: 0 23 * * *
+  #schedule:
+    #- cron: 0 0 */2 * *
   workflow_dispatch:
     inputs:
       rootfs_size:
         required: true
-        default: '128'
+        default: '1024'
       device:
         type: choice
         default: 'friendlyarm_nanopi-r2s'
@@ -68,14 +68,14 @@ jobs:
       - name: setup1
         run: |
           
-           wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
-          # wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
+          # wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
+           wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
       - name: make
         run: |
           . $GITHUB_WORKSPACE/package.conf
-          cd *imagebuilder* ; # wget -q -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
-           # cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
-          sudo make V=s image PROFILE="friendlyarm_nanopi-r2s" PACKAGES="$PKG" ROOTFS_PARTSIZE="256" \
+          cd *imagebuilder* ; wget -q -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
+           cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
+          sudo make V=s image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}" \
            FILES="$GITHUB_WORKSPACE/files"
           mkdir -p $GITHUB_WORKSPACE/release
           sudo mv -v bin/targets/*/*/*img.gz  $GITHUB_WORKSPACE/release/
@@ -83,7 +83,7 @@ jobs:
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
         with: 
-          tag_name: small         
+          tag_name: large         
           name:  自动发布 kwrt_snapshot 固件
           files: |
               ./release/* 
