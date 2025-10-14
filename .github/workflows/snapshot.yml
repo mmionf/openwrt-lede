@@ -6,7 +6,7 @@ on:
     inputs:
       rootfs_size:
         required: true
-        default: '1024'
+        default: '256'
       device:
         type: choice
         default: 'friendlyarm_nanopi-r2s'
