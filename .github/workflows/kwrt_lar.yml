@@ -68,12 +68,10 @@ jobs:
       - name: setup1
         run: |
           
-          # wget -qO- https://downloads.immortalwrt.org/releases/24.10.2/targets/rockchip/armv8/immortalwrt-imagebuilder-24.10.2-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
-           wget -qO- https://dl.openwrt.ai/releases/24.10/targets/rockchip/armv8/kwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst|tar --zstd -xf -
-      - name: make
+          wget -qO- https://mirrors.nju.edu.cn/immortalwrt/releases/23.05.0/targets/rockchip/armv8/immortalwrt-imagebuilder-23.05.0-rockchip-armv8.Linux-x86_64.tar.xz|tar -xJf -
         run: |
           . $GITHUB_WORKSPACE/package.conf
-          cd *imagebuilder* ; wget -q -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
+          cd *imagebuilder* 
            cp -f  $GITHUB_WORKSPACE/feeds.conf repositories.conf
           sudo make V=s image PROFILE="${{github.event.inputs.device}}" PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}" \
            FILES="$GITHUB_WORKSPACE/files"
