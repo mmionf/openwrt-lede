@@ -1,4 +1,4 @@
-name: gren
+name: LEDE
 on:
   #schedule:
     #- cron: 0 0 */2 * *
@@ -6,7 +6,7 @@ on:
     
 jobs:
   build_packages:
-    name: start
+    name: openwrt_project
     runs-on: ubuntu-22.04
     steps:
       - name: ck
