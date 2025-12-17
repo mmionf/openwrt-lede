@@ -57,8 +57,8 @@ jobs:
       - name: gent firmware
         run: |
             cd /builder/lede
-            make -j4 tools/compile toolchain/compile target/compile
-            make -j1 
+            make -j4 
+            
             mv bin/targets/*/*/*.gz $GITHUB_WORKSPACE/
       - name: Upload release asset
         uses: softprops/action-gh-release@v2.2.1
