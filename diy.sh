@@ -1,4 +1,4 @@
-./scripts/feeds update -a
+./scripts/feeds update -a >/dev/null
 rm -rf feeds/luci/themes/luci-theme-argon
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 
