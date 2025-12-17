@@ -1,0 +1,38 @@
+name: pack_onecloud
+on:
+  workflow_dispatch:
+    inputs:
+      rootfs_size:
+        required: true
+        default: '1024'
+jobs:
+  build_packages:
+    name: use_imagebuilder
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@main
+      
+      - name: dl_img
+        run: |
+          sudo apt install -y img2simg
+          wget -qO- https://dl.openwrt.ai/releases/24.10/targets/amlogic/meson8b/kwrt-imagebuilder-amlogic-meson8b.Linux-x86_64.tar.zst|tar --zstd -xf -
+          cd *imagebuilder*
+          wget -P packages/ -i $GITHUB_WORKSPACE/dl_pkg.url
+          . $GITHUB_WORKSPACE/onecloud/pkg.conf
+          cp -f  $GITHUB_WORKSPACE/onecloud/feeds.conf repositories.conf
+          sudo make image PACKAGES="$PKG" ROOTFS_PARTSIZE="${{github.event.inputs.rootfs_size}}" FILES="$GITHUB_WORKSPACE/files"
+          mkdir $GITHUB_WORKSPACE/release 
+          sudo mv -v bin/targets/*/*/*img*  $GITHUB_WORKSPACE/release/
+          sudo mv output/images/*.img $GITHUB_WORKSPACE/release/||true
+      
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2.2.1
+        with: 
+          tag_name: snapshot 
+          name:  自动发布 kwrt_snapshot 固件
+          files: |
+              ./release/* 
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
