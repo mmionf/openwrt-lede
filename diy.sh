@@ -11,5 +11,6 @@ rm -rf other
 }
 
 clone_directory https://github.com/coolsnowwolf/luci openwrt-23.05 other/applications/{luci-app-passwall,luci-app-passwall2}
-mv feeds/helloworld/luci-app-ssr-plus package/
+rm -fr feeds/helloworld/luci-app-ssr-plus
+clone_directory https://github.com/fw876/helloworld master other/luci-app-ssr-plus
 ./scripts/feeds install -a
