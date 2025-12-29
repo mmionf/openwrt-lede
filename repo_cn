@@ -1,0 +1,5 @@
+src 1 https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.4/targets/rockchip/armv8/kmods/6.6.110-1-23375d261da0c0e9da36857794905cf7/
+src 2 https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.4/targets/rockchip/armv8/packages/
+src 3 https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.4/packages/aarch64_generic/base/
+src 4 https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.4/packages/aarch64_generic/luci/
+src 5 https://mirrors.nju.edu.cn/immortalwrt/releases/24.10.4/packages/aarch64_generic/packages/
